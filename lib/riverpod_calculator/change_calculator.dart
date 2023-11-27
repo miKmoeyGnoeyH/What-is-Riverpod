@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:what_is_riverpod/calculator.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:what_is_riverpod/riverpod_calculator/calculator.dart';
+import 'package:what_is_riverpod/riverpod_calculator/provider.dart';
 
-typedef OnChangedCalculator = Function(Calculator calculator);
-
-class ChangeCalculator extends StatelessWidget {
+class ChangeCalculator extends ConsumerWidget {
   final num left;
   final num right;
-  final OnChangedCalculator onChangedCalculator;
 
   const ChangeCalculator({
     super.key,
     required this.left,
     required this.right,
-    required this.onChangedCalculator,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -34,14 +32,18 @@ class ChangeCalculator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => onChangedCalculator(Adder()),
+              onPressed: () {
+                ref.read(provider.notifier).update((state) => Adder());
+              },
               child: const Text('+'),
             ),
             const SizedBox(
               width: 32,
             ),
             ElevatedButton(
-              onPressed: () => onChangedCalculator(Multiplier()),
+              onPressed: () {
+                ref.read(provider.notifier).update((state) => Multiplier());
+              },
               child: const Text('*'),
             ),
           ],

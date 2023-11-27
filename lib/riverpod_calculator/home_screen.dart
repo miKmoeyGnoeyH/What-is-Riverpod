@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:what_is_riverpod/calculator.dart';
-import 'package:what_is_riverpod/calculator_result.dart';
-import 'package:what_is_riverpod/change_calculator.dart';
+import 'package:what_is_riverpod/riverpod_calculator/calculator_result.dart';
+import 'package:what_is_riverpod/riverpod_calculator/change_calculator.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  Calculator calculator = Adder();
+class HomeScreen extends StatelessWidget {
+  //Calculator calculator = Adder();
   final num left = 1;
   final num right = 9;
+
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +22,18 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: Container(
                 color: Colors.amber[300],
-                child: CalculatorResult(
+                child: const CalculatorResult(
                   left: left,
                   right: right,
-                  calculator: calculator,
                 ),
               ),
             ),
             Expanded(
               child: Container(
                 color: Colors.green[300],
-                child: ChangeCalculator(
+                child: const ChangeCalculator(
                   left: left,
                   right: right,
-                  onChangedCalculator: (calculator) {
-                    setState(() {
-                      this.calculator = calculator;
-                    });
-                  },
                 ),
               ),
             ),
